@@ -29,7 +29,7 @@ Everything is in:
 QtFont3D textRenderer;
 ```
 
-Make sure you have a valid OpenGL context before building the font display list using `setFont(...)`.
+:warning: Make sure you have a valid OpenGL context before building the font display list using `setFont(...)`.
 
 ```cpp
 float glyphWidth = 3;
