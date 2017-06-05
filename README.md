@@ -38,7 +38,7 @@ QFont font = QFont("Sans", 20, QFont::Normal);
 textRenderer.setFont(font, glyphWidth, numGlyphs);
 ```
 
-Render 3D text in an OpenGL scene using `print(...)`.
+Render 3D text in an OpenGL scene using `print(...)`. Text color is the current OpenGL color.
 
 ```cpp
 textRenderer.print("Hello World!");
