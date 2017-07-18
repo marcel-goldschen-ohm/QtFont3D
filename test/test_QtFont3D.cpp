@@ -5,7 +5,7 @@
  * Email: marcel.goldschen@gmail.com
  * -------------------------------------------------------------------------------- */
 
-#include "test.h"
+#include "test_QtFont3D.h"
 
 #include <cmath>
 
