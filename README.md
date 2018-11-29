@@ -16,6 +16,12 @@ Everything is in:
 * `QtFont3D.h`
 * `QtFont3D.cpp`
 
+### CMake:
+
+See `CMakeLists.txt` for example build as a static library.
+
+:point_right: **This is most likely what you want:** See `test/CMakeLists.txt` for example build of an app that uses QtFont3D. This build uses CMake to automatically download QtFont3D files directly from this GitHub repository, builds QtFont3D as a static library and links it to the app executable. This way you can use QtFont3D in your project without downloading or managing the QtFont3D repository manually.
+
 ### Requires:
 
 * [Qt](http://www.qt.io)
