@@ -39,7 +39,7 @@ endif()
 find_package(Qt5 COMPONENTS Core Widgets OpenGL REQUIRED)
 find_package(OpenGL REQUIRED)
 
-# Build fetched QtOpenGLViewer as a static library.
+# Build fetched QtFont3D as a static library.
 add_library(QtFont3D STATIC ${qtfont3d_SOURCE_DIR}/QtFont3D.cpp ${qtfont3d_SOURCE_DIR}/QtFont3D.h)
 qt5_use_modules(QtFont3D Widgets OpenGL)
 target_link_libraries(QtFont3D ${QT_LIBRARIES} ${OPENGL_LIBRARIES})
