@@ -7,7 +7,12 @@
 
 #include <stdexcept>
 
-#include <glu.h>
+#include <qopengl.h>
+#ifndef Q_OS_DARWIN
+#include <GL/glu.h>
+#else
+#include <OpenGL/glu.h>
+#endif
 
 #include <QList>
 #include <QPainter>
