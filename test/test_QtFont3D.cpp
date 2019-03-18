@@ -11,6 +11,10 @@
 
 #include <QApplication>
 #include <QMouseEvent>
+#include <QCommandLineParser>
+
+static bool antialias = false;
+static QString text = "Rotate with Mouse!";
 
 Viewer::Viewer(QWidget *parent) :
 QOpenGLWidget(parent),
@@ -31,7 +35,8 @@ void Viewer::initializeGL()
     glEnable(GL_COLOR_MATERIAL);
     glEnable(GL_LIGHT0);
     glDisable(GL_LIGHTING);
-    
+    if(antialias) glEnable(GL_MULTISAMPLE_ARB);
+
     // We need a valid OpenGL context before building the 3D font display lists.
     float glyphWidth = 3;
     int numGlyphs = 256;
@@ -54,9 +59,8 @@ void Viewer::paintGL()
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     lookAt(_eye, _center, _up);
-    
+
     // Draw 3D text.
-    QString text = "Rotate with Mouse!";
     QVector3D position(0, 0, 0);
     int align = Qt::AlignHCenter | Qt::AlignVCenter;
     float scale = float(20) / 1200; // This just happens to be appropriate for this particular scene's perspective view.
@@ -165,7 +169,30 @@ void Viewer::lookAt(const QVector3D &eye, const QVector3D &center, const QVector
 int main(int argc, char **argv)
 {
     QApplication app(argc, argv);
-    
+
+    QCommandLineParser cmd;
+    QCommandLineOption optAntialias(
+        QStringList() << "a" << "antialias",
+        QObject::tr("Enable anti-aliasing."));
+    QCommandLineOption optText(
+        QStringList() << "t" << "text",
+        QObject::tr("Display this text in 3D view."),
+        QObject::tr("text"));
+    QCommandLineOption optHelp = cmd.addHelpOption();
+    cmd.addOption(optAntialias);
+    cmd.addOption(optText);
+    cmd.process(app);
+
+    antialias = cmd.isSet(optAntialias);
+    if(cmd.isSet(optText))
+        text = cmd.value(optText);
+
+    if(antialias) {
+        QSurfaceFormat openGLFormat = QSurfaceFormat::defaultFormat();
+        openGLFormat.setSamples(4);
+        QSurfaceFormat::setDefaultFormat(openGLFormat);
+    }
+
     Viewer viewer;
     viewer.show();
     
